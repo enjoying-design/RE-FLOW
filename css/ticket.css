@@ -1,0 +1,963 @@
+/* font */
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/PretendardVariable.woff2') format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Temblores';
+    src: url('../font/TEMBLORES.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html{
+    overflow-y: scroll;
+}
+
+a{
+    color: inherit;
+    text-decoration: none;
+}
+
+ul{
+    list-style: none;
+}
+
+body{
+    font-family: 'Pretendard', sans-serif;
+    font-size: 13px;
+    line-height: 30px;
+    color: #4e4e4e;
+    background-color: #fff;
+}
+
+#wrap_wrap{
+    min-width: 1400px;
+    overflow: hidden;
+}
+
+/* header */
+#header_wrap {
+    position: absolute;
+    top: 40px; 
+    left: 0;
+    width: 100%;
+    height: 100px;
+    z-index: 100;
+
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+
+    background-color: transparent;
+}
+
+#header_wrap .header_inner {
+    width: 100%;
+    max-width: 1320px;     
+    height: 100%;
+
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+
+    padding: 0 20px;
+}
+
+#header_wrap h1 img {
+    height: 80px;
+    width: auto;
+    display: block;
+}
+
+#header_wrap ul {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#header_wrap ul li a {
+    color: #333;
+    font-size: 15pt;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: color 0.3s, transform 0.3s;
+    display: inline-block;
+}
+
+#header_wrap ul li a:hover {
+    color: #333;
+    font-weight: 700;
+    font-size: 18pt;
+    transform: translateY(-5px);
+}
+
+/* ticket icon */
+#header_wrap .header_inner > a{
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 60px;
+    height: 60px;
+
+    transition: transform 0.35s ease;
+    z-index: 10;
+}
+
+#header_wrap .header_inner > a img{
+    width: 64px;
+    height: auto;
+    display: block;
+
+    transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+#header_wrap .header_inner > a:hover img{
+    transform: scale(1.1) rotate(-6deg);
+    filter: drop-shadow(0 8px 12px rgba(0,0,0,0.28));
+}
+
+/* ticket bubble */
+#header_wrap .header_inner > a::after{
+    content: "예매하기";
+    position: absolute;
+    left: 50%;
+    top: 92px;
+    transform: translateX(-50%);
+    width: 90px;
+    height: 33px;
+    line-height: 35px;
+    background-color: #000000;
+    border-radius: 17px;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 11pt;
+    font-weight: 500;
+    color: #fff;
+    text-align: center;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+    animation: ticketBubbleFloat 2.2s ease-in-out infinite;
+    pointer-events: none;
+}
+
+#header_wrap .header_inner > a::before{
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 75px;
+    transform: translateX(-50%);
+
+    width: 0;
+    height: 0;
+
+    border-left: 13px solid transparent;
+    border-right: 13px solid transparent;
+    border-bottom: 23px solid #000;
+
+    animation: ticketBubbleFloat 2.2s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes ticketBubbleFloat{
+    0%{
+        transform: translateX(-50%) translateY(0);
+    }
+
+    50%{
+        transform: translateX(-50%) translateY(-7px);
+    }
+
+    100%{
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* =========================
+   TICKET PAGE BACKGROUND
+========================= */
+
+#ticket_page{
+    width: 100%;
+    min-width: 1400px;
+    padding: 210px 0 120px;
+    position: relative;
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            ellipse at center 48%,
+            rgba(255, 218, 95, 0.75) 0%,
+            rgba(255, 229, 142, 0.52) 28%,
+            rgba(255, 244, 210, 0.35) 50%,
+            rgba(255, 255, 255, 0) 73%
+        ),
+        linear-gradient(
+            to bottom,
+            #ffffff 0%,
+            #ffffff 26%,
+            #fffdf7 36%,
+            #fff6df 48%,
+            #ffe9ad 60%,
+            #fff5df 75%,
+            #ffffff 100%
+        );
+}
+
+/* 흐릿한 원 배경 */
+#ticket_page::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+
+    background:
+        radial-gradient(circle at 16% 8%, rgba(225, 194, 255, 0.48) 0 38px, transparent 88px),
+        radial-gradient(circle at 61% 10%, rgba(226, 194, 255, 0.42) 0 58px, transparent 115px),
+        radial-gradient(circle at 65% 8%, rgba(207, 229, 111, 0.48) 0 26px, transparent 62px),
+        radial-gradient(circle at 91% 14%, rgba(255, 158, 96, 0.52) 0 44px, transparent 92px),
+
+        radial-gradient(circle at 7% 18%, rgba(255, 232, 82, 0.56) 0 24px, transparent 62px),
+        radial-gradient(circle at 9% 48%, rgba(137, 176, 88, 0.50) 0 54px, transparent 120px),
+
+        radial-gradient(circle at 22% 70%, rgba(255, 189, 153, 0.45) 0 118px, transparent 230px),
+        radial-gradient(circle at 84% 62%, rgba(255, 229, 56, 0.58) 0 78px, transparent 150px),
+
+        radial-gradient(circle at 94% 78%, rgba(137, 176, 100, 0.50) 0 72px, transparent 145px),
+        radial-gradient(circle at 90% 82%, rgba(255, 241, 95, 0.52) 0 36px, transparent 82px),
+
+        radial-gradient(circle at 8% 86%, rgba(255, 175, 86, 0.45) 0 46px, transparent 105px),
+        radial-gradient(circle at 88% 96%, rgba(255, 198, 172, 0.38) 0 45px, transparent 100px);
+
+    filter: blur(16px);
+    opacity: 0.9;
+}
+
+
+#ticket_page .ticket_inner{
+    position: relative;
+    z-index: 2;
+}
+.ticket_inner{
+    width: 1320px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* title */
+.ticket_title{
+    margin-top: 50px;
+    margin-bottom: 150px;
+}
+
+.ticket_title h1{
+    position: relative;
+    display: inline-block;
+    font-family: 'Temblores', sans-serif;
+    font-size: 35pt;
+    letter-spacing: 10px;
+    font-weight: 300;
+    color: #ffad4a;
+    line-height: 1.2;
+    z-index: 2;
+}
+
+.ticket_title h1::before{
+    content: "";
+    position: absolute;
+    left: -15%;
+    top: 30%;
+    transform: translateY(-50%);
+    width: 70px;
+    height: 70px;
+    background-color: #fff3a6;
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.ticket_title h1::after{
+    content: "";
+    position: absolute;
+    left: 50px;
+    top: -50px;
+    width: 30px;
+    height: 30px;
+    background-color: #ffcc73c8;
+    border-radius: 50%;
+    z-index: -1;
+    box-shadow: 175px 90px 0 0 #ffcc73b8;
+}
+
+/*  FLIP TICKET CARDS */
+
+.ticket_card_wrap{
+    width: 1320px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap:40px;
+}
+
+.ticket_card{
+    width: 450px;
+    height: 670px;
+    perspective: 1000px;
+}
+
+.ticket_card_inner{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 0.8s ease;
+    transform-style: preserve-3d;
+}
+
+.ticket_card:hover .ticket_card_inner{
+    transform: rotateY(180deg);
+}
+
+/* 앞면 / 뒷면 공통 */
+.ticket_front,
+.ticket_back{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* 앞면 티켓 이미지 */
+.ticket_front img{
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+}
+
+/* 뒷면 도형 : 티켓 이미지와 같은 사이즈 */
+.ticket_back{
+    transform: rotateY(180deg);
+    width: 85%;
+    height: 90%;
+    left: 7%;
+    top:2%;
+    border-radius: 34px;
+    box-sizing: border-box;
+    padding: 70px 20px 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 34px;
+    text-align: center;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 15pt;
+    font-weight: 500;
+    line-height: 1.6;
+    box-shadow: 0 14px 20px rgba(0,0,0,0.12);
+}
+
+/* 뒷면 글 */
+.ticket_back p{
+    margin: 0;
+}
+
+/* 뒷면 색상 */
+.basic_back{
+    background-color: #f4c394;
+}
+
+.class_back{
+    background-color: #fff2a3;
+}
+
+.reflow_back{
+    background-color: #c8da84;
+}
+
+/* RESERVE BUTTON */
+
+.ticket_btn_wrap{
+    margin: 82px auto 155px;
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+}
+
+.ticket_btn{
+    width: 200px;
+    height: 55px;
+    line-height: 48px;
+    border: 3px solid #fff;
+    border-radius: 30px;
+    box-sizing: border-box;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    box-shadow: 
+        0 7px 0 rgba(0,0,0,0.18),
+        0 12px 18px rgba(0,0,0,0.12);
+    transition: 
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        background-color 0.25s ease;
+}
+
+/*    TICKET IMAGE FLOATING */
+
+.ticket_front img{
+    animation: ticketImageFloat 3.2s ease-in-out infinite;
+}
+
+/* 1번 티켓 */
+.ticket_card:nth-child(1) .ticket_front img{
+    animation-delay: 0s;
+}
+
+/* 2번 티켓 */
+.ticket_card:nth-child(2) .ticket_front img{
+    animation-delay: 0.35s;
+}
+
+/* 3번 티켓 */
+.ticket_card:nth-child(3) .ticket_front img{
+    animation-delay: 0.7s;
+}
+
+@keyframes ticketImageFloat{
+    0%{
+        transform: translateY(0);
+    }
+
+    50%{
+        transform: translateY(-14px);
+    }
+
+    100%{
+        transform: translateY(0);
+    }
+}
+
+.yes24_btn{
+    background-color: #f6b679;
+}
+
+
+.interpark_btn{
+    background-color: #b8cc73;
+}
+
+.ticket_btn:hover{
+    transform: translateY(-3px);
+    box-shadow: 
+        0 10px 0 rgba(0,0,0,0.16),
+        0 16px 22px rgba(0,0,0,0.16);
+}
+
+.yes24_btn:hover{
+    background-color: #ffad66;
+}
+
+.interpark_btn:hover{
+    background-color: #abc95f;
+}
+
+
+.ticket_btn:active{
+    transform: translateY(5px);
+    box-shadow: 
+        0 2px 0 rgba(0,0,0,0.22),
+        0 4px 8px rgba(0,0,0,0.12) inset;
+}
+
+.yes24_btn:active{
+    background-color: #d98133;
+}
+
+.interpark_btn:active{
+    background-color: #718b32;
+}
+
+
+/* NOTICE */
+
+.ticket_notice{
+    width: 1120px;
+    margin: 300px auto;
+    text-align: center;
+}
+
+.ticket_notice h2{
+    font-family: 'Pretendard', sans-serif;
+    font-size: 27px;
+    font-weight: 700;
+    margin-bottom: 80px;
+}
+
+.notice_box{
+    width: 100%;
+    min-height: 130px;
+    padding: 28px 42px 28px 118px;
+    margin-bottom: 26px;
+    border: 2px solid #ff8b3d;
+    border-radius: 28px;
+    background-color: rgba(255,255,255,0.78);
+    box-sizing: border-box;
+    position: relative;
+    text-align: left;
+}
+
+.notice_icon{
+    position: absolute;
+    left: 36px;
+    top: 32px;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+}
+
+.notice_icon img{
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+}
+
+.notice_text h3{
+    font-family: 'Pretendard', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom:10px;
+}
+
+.notice_sub_title{
+    font-family: 'Pretendard', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #333;
+    margin: 18px 0 4px;
+}
+
+.notice_list{
+    padding-left: 16px;
+    margin-bottom: 0;
+}
+
+.notice_list li{
+    list-style: disc;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: #555;
+    word-break: keep-all;
+    margin-bottom: 2px;
+}
+
+.notice_list li::marker{
+    color: #111;
+    font-size: 9px;
+}
+
+.notice_text p{
+    font-family: 'Pretendard', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.85;
+    color: #555;
+    word-break: keep-all;
+    margin-bottom: 12px;
+}
+
+.notice_text p:last-child{
+    margin-bottom: 0;
+}
+
+.contact_box{
+    min-height: 140px;
+    margin-bottom: 0;
+}
+
+/* footer */
+#footer{
+    width: 100%;
+    height: 200px;
+
+    background: url(../image/sub_footer_bg.png) no-repeat center top;
+    background-size: cover;
+
+    position: relative;
+    margin-top: -50px;
+    overflow: hidden;
+    z-index: 6;
+}
+
+.footer_inner{
+    width: 1320px;
+    height: 190px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 5;
+}
+
+/* logo */
+.footer_logo{
+    position: absolute;
+    left: 40px;
+    top: 58px;
+    z-index: 5;
+}
+
+.footer_logo a{
+    display: block;
+}
+
+.footer_logo img{
+    width: 120px;
+    height: auto;
+    display: block;
+}
+
+.footer_logo a:hover{
+    animation: iconSway 0.8s ease-in-out infinite;
+    transform-origin: center center;
+}
+
+@keyframes iconSway{
+    0%{
+        transform: rotate(0deg);
+    }
+
+    30%{
+        transform: rotate(-6deg);
+    }
+
+    60%{
+        transform: rotate(5deg);
+    }
+
+    100%{
+        transform: rotate(0deg);
+    }
+}
+
+/* footer text */
+.footer_text{
+    height: 200px;
+    position: relative;
+    text-align: center;
+    font-family: 'Pretendard', sans-serif;
+    color: #666;
+    z-index: 5;
+}
+
+.footer_text > p{
+    position: absolute;
+    left: 50%;
+    top: 90px;
+    transform: translateX(-50%);
+    width: 520px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.footer_bt{
+    position: absolute;
+    left: 50%;
+    top: 98px;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+}
+
+.footer_bt li a{
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+    line-height: 1;
+    padding-top: 30px;
+}
+
+.footer_bt li a:hover{
+    color: #7c7c7c;
+}
+
+/* sns */
+.footer_sns{
+    position: absolute;
+    right: 55px;
+    top: 68px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.footer_sns li a{
+    display: block;
+    padding: 5px;
+}
+
+.footer_sns li a img{
+    width: 45px;
+    height: 45px;
+    display: block;
+
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.footer_sns li a:hover img{
+    transform: translateY(-4px);
+    opacity: 0.75;
+}
+
+/* =========================
+   SOFT GREEN CIRCLE CURSOR
+========================= */
+
+/* JS 실행 후 기본 커서 숨김 */
+body.custom-cursor-on{
+    cursor: none;
+}
+
+body.custom-cursor-on a,
+body.custom-cursor-on button,
+body.custom-cursor-on .program_arrow,
+body.custom-cursor-on .notice_prev,
+body.custom-cursor-on .notice_next,
+body.custom-cursor-on .faq_list li,
+body.custom-cursor-on .map-spot,
+body.custom-cursor-on .map-action,
+body.custom-cursor-on .ticket_more,
+body.custom-cursor-on .zone-card,
+body.custom-cursor-on .notice_card{
+    cursor: none;
+}
+
+/* 커서 전체 */
+#circle_cursor{
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    width: 42px;
+    height: 42px;
+
+    pointer-events: none;
+    z-index: 999999;
+
+    opacity: 0;
+    transform: translate(-50%, -50%);
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.22s ease;
+}
+
+/* 화면 안에 들어왔을 때 */
+#circle_cursor.is-visible{
+    opacity: 1;
+}
+
+/* 바깥 얇은 원 */
+.cursor_ring{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+
+    width: 38px;
+    height: 38px;
+
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+
+    border: 1.5px solid rgba(139, 202, 69, 0.85);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.7) 0%,
+            rgba(230, 250, 205, 0.35) 42%,
+            rgba(255, 255, 255, 0) 72%
+        );
+
+    box-shadow:
+        0 0 7px rgba(180, 225, 105, 0.35),
+        inset 0 0 8px rgba(255, 255, 255, 0.65);
+
+    transition:
+        width 0.25s ease,
+        height 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+/* 가운데 흐릿한 초록빛 */
+.cursor_core{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+
+    width: 16px;
+    height: 16px;
+
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(139, 202, 69, 0.75) 0%,
+            rgba(178, 225, 105, 0.42) 36%,
+            rgba(209, 240, 150, 0.18) 62%,
+            rgba(209, 240, 150, 0) 100%
+        );
+
+    filter: blur(3px);
+
+    transition:
+        width 0.25s ease,
+        height 0.25s ease,
+        background 0.25s ease,
+        filter 0.25s ease;
+}
+
+/* hover 시 아주 살짝 커짐 + 색 진해짐 */
+#circle_cursor.is-hover .cursor_ring{
+    width: 44px;
+    height: 44px;
+
+    border-color: rgba(110, 172, 48, 0.95);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.72) 0%,
+            rgba(220, 246, 190, 0.42) 42%,
+            rgba(255, 255, 255, 0) 72%
+        );
+
+    box-shadow:
+        0 0 10px rgba(160, 215, 86, 0.48),
+        inset 0 0 10px rgba(255, 255, 255, 0.75);
+}
+
+#circle_cursor.is-hover .cursor_core{
+    width: 19px;
+    height: 19px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(112, 176, 50, 0.85) 0%,
+            rgba(160, 210, 82, 0.52) 38%,
+            rgba(205, 238, 145, 0.24) 64%,
+            rgba(205, 238, 145, 0) 100%
+        );
+
+    filter: blur(3.5px);
+}
+
+/* 클릭 시 아주 살짝 눌림 */
+#circle_cursor.is-click{
+    transform: translate(-50%, -50%) scale(0.88);
+}
+
+/* =========================
+   LEAF TRAIL
+========================= */
+
+/* 움직일 때 생기는 작은 나뭇잎 */
+.cursor_leaf{
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    width: 7px;
+    height: 12px;
+
+    pointer-events: none;
+    z-index: 999998;
+
+    border-radius: 80% 0 80% 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(196, 224, 126, 0.92) 0%,
+            rgba(126, 170, 80, 0.82) 60%,
+            rgba(92, 130, 58, 0.78) 100%
+        );
+
+    box-shadow:
+        0 0 6px rgba(180, 220, 115, 0.42),
+        0 0 12px rgba(226, 248, 180, 0.3);
+
+    opacity: 0;
+
+    animation: cursorLeafFloat 1s ease-out forwards;
+}
+
+/* 잎맥 */
+.cursor_leaf::before{
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 2px;
+
+    width: 1px;
+    height: 9px;
+
+    background-color: rgba(255, 255, 230, 0.7);
+    border-radius: 10px;
+
+    transform: translateX(-50%) rotate(-35deg);
+}
+
+/* 작은 잎이 사라락 흩어지는 효과 */
+@keyframes cursorLeafFloat{
+    0%{
+        opacity: 0.85;
+        transform:
+            translate(-50%, -50%)
+            translate(0, 0)
+            rotate(var(--leaf-rotate))
+            scale(1);
+    }
+
+    100%{
+        opacity: 0;
+        transform:
+            translate(-50%, -50%)
+            translate(var(--leaf-x), var(--leaf-y))
+            rotate(calc(var(--leaf-rotate) + 160deg))
+            scale(0.25);
+    }
+}
